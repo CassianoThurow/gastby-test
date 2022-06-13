@@ -1,5 +1,7 @@
 import { gql, useQuery } from "@apollo/client"
 import * as React from "react"
+import Card from '../components/Card'
+import styled from 'styled-components'
 
 const GET_LAUNCHERS = gql`
   query {
@@ -22,14 +24,20 @@ const IndexPage = () => {
     )
   }
   return (
-    data.launchesPast.map(launch =>
-        <div>
-          <h1>{launch.mission_name}</h1>
-          <p>{launch.launch_date_local}</p>
-          <span>{launch.rocket.rocket_name}</span>
-        </div>  
-      )
+    <Container>
+      {data.launchesPast.map(launch =>
+        <Card title={launch.mission_name} date={launch.launch_date_local} rocket=
+        {launch.rocket.rocket_name} />
+      )}
+      </Container>
   )
 }
+
+const Container = styled.div`
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 20px;
+`
 
 export default IndexPage
